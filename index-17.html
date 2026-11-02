@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Loan Inquiry CPM Sangli</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Mukta:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  color-scheme:light;
+  --bg:#f5f7fb; --card:#ffffff; --ink:#14213d; --muted:#5b6785; --line:#d9dfec;
+  --brand:#1b2f6b; --brand-ink:#ffffff; --accent:#e8830c; --accent-soft:#fff1de;
+  --ok:#17803d; --err:#b3261e; --sel:#e9eefc;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#0e1426; --card:#172039; --ink:#eef1fa; --muted:#a3adc8; --line:#2b3658;
+    --brand:#6f8cff; --brand-ink:#0e1426; --accent:#ffa94d; --accent-soft:#3a2a14;
+    --ok:#5fd18a; --err:#ff8a80; --sel:#223062;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#0e1426; --card:#172039; --ink:#eef1fa; --muted:#a3adc8; --line:#2b3658;
+  --brand:#6f8cff; --brand-ink:#0e1426; --accent:#ffa94d; --accent-soft:#3a2a14;
+  --ok:#5fd18a; --err:#ff8a80; --sel:#223062;
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Mukta","Noto Sans Devanagari","Nirmala UI",system-ui,sans-serif;font-size:17px;line-height:1.5;-webkit-text-size-adjust:100%}
+.wrap{max-width:560px;margin:0 auto;padding:0 16px 40px}
+header{background:var(--brand);color:var(--brand-ink);margin:0 -16px;padding:18px 16px 56px;position:relative}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand{font-weight:700;font-size:15px;opacity:.9}
+.lang{display:inline-flex;border:1.5px solid currentColor;border-radius:999px;overflow:hidden}
+.lang button{all:unset;cursor:pointer;padding:6px 14px;font-weight:700;font-size:14px;color:inherit}
+.lang button[aria-pressed="true"]{background:var(--brand-ink);color:var(--brand)}
+.lang button:focus-visible{outline:3px solid var(--accent);outline-offset:-3px}
+h1{margin:22px 0 6px;font-size:30px;line-height:1.2;font-weight:800}
+.sub{margin:0;opacity:.92;font-size:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px 18px;margin-top:-34px;position:relative;box-shadow:0 6px 24px rgba(20,33,61,.10)}
+.area{display:inline-block;background:var(--accent-soft);color:var(--ink);border-radius:8px;padding:6px 12px;font-weight:600;font-size:15px;margin-bottom:6px}
+fieldset{border:0;padding:0;margin:20px 0 0}
+legend,label.l{display:block;font-weight:700;font-size:17px;margin-bottom:8px;padding:0}
+input[type=text],input[type=tel]{width:100%;font:inherit;font-size:18px;padding:13px 14px;border:1.5px solid var(--line);border-radius:12px;background:var(--bg);color:var(--ink)}
+input[type=text]:focus,input[type=tel]:focus{outline:3px solid var(--accent);outline-offset:1px;border-color:var(--accent)}
+.opts{display:grid;gap:8px}
+.opts.two{grid-template-columns:1fr 1fr}
+.opts.three{grid-template-columns:1fr 1fr 1fr}
+.opt{position:relative}
+.opt input{position:absolute;opacity:0;inset:0;width:100%;height:100%;margin:0;cursor:pointer}
+.opt span{display:flex;align-items:center;min-height:50px;padding:10px 14px;border:1.5px solid var(--line);border-radius:12px;font-weight:600;background:var(--bg);line-height:1.25}
+.opts.three .opt span{justify-content:center;text-align:center;padding:10px 6px}
+.opt input:checked+span{border-color:var(--brand);background:var(--sel);box-shadow:inset 0 0 0 1.5px var(--brand)}
+.opt input:focus-visible+span{outline:3px solid var(--accent);outline-offset:2px}
+.err{color:var(--err);font-size:15px;font-weight:600;margin:6px 0 0;min-height:0}
+.send{all:unset;box-sizing:border-box;display:block;width:100%;text-align:center;cursor:pointer;margin-top:26px;background:var(--accent);color:#1b1200;font-weight:800;font-size:19px;padding:16px;border-radius:14px}
+.send:focus-visible,.cta a:focus-visible{outline:3px solid var(--brand);outline-offset:3px}
+.note{color:var(--muted);font-size:14.5px;margin:10px 0 0;text-align:center}
+.done{display:none;margin-top:16px;background:var(--sel);border-radius:12px;padding:14px 16px;font-weight:600}
+.done.show{display:block}
+.contact{margin-top:22px;text-align:center}
+.contact h2{font-size:18px;margin:0 0 4px}
+.contact p{margin:0 0 12px;color:var(--muted);font-size:15.5px}
+.cta{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.cta a{display:flex;align-items:center;justify-content:center;gap:8px;min-height:52px;border-radius:14px;font-weight:800;text-decoration:none;font-size:17px}
+.call{background:var(--brand);color:var(--brand-ink)}
+.wa{background:#1fa855;color:#fff}
+.cta svg{width:20px;height:20px;fill:currentColor}
+.num{margin:14px 0 0}.num a{color:var(--ink);font-weight:800;font-size:22px;letter-spacing:.5px;text-decoration:none;border-bottom:2px solid var(--accent)}
+footer{text-align:center;color:var(--muted);font-size:13.5px;margin-top:22px}
+@media (max-width:380px){.opts.three{grid-template-columns:1fr 1fr}h1{font-size:26px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="top">
+    <span class="brand">CPM Sangli</span>
+    <div class="lang" role="group" aria-label="Language">
+      <button type="button" id="bmr" aria-pressed="true">मराठी</button>
+      <button type="button" id="ben" aria-pressed="false">English</button>
+    </div>
+  </div>
+  <h1 data-k="title"></h1>
+  <p class="sub" data-k="sub"></p>
+</header>
+
+<main class="card">
+  <span class="area" data-k="area"></span>
+  <form id="f" novalidate>
+    <fieldset>
+      <label class="l" for="name" data-k="name"></label>
+      <input type="text" id="name" autocomplete="name" maxlength="60">
+      <p class="err" id="e-name"></p>
+    </fieldset>
+
+    <fieldset>
+      <label class="l" for="phone" data-k="phone"></label>
+      <input type="tel" id="phone" inputmode="numeric" autocomplete="tel-national" maxlength="10" placeholder="9XXXXXXXXX">
+      <p class="err" id="e-phone"></p>
+    </fieldset>
+
+    <fieldset>
+      <legend data-k="district"></legend>
+      <div class="opts three" id="g-district"></div>
+      <p class="err" id="e-district"></p>
+    </fieldset>
+
+    <fieldset>
+      <legend data-k="type"></legend>
+      <div class="opts" id="g-type"></div>
+      <p class="err" id="e-type"></p>
+    </fieldset>
+
+    <fieldset>
+      <legend data-k="amount"></legend>
+      <div class="opts two" id="g-amount"></div>
+      <p class="err" id="e-amount"></p>
+    </fieldset>
+
+    <button class="send" type="submit" data-k="send"></button>
+    <p class="note" data-k="note"></p>
+    <div class="done" id="done" role="status" data-k="done"></div>
+  </form>
+</main>
+
+<section class="contact">
+  <h2 data-k="direct"></h2>
+  <p data-k="directSub"></p>
+  <div class="cta">
+    <a class="call" id="call" href="tel:+918552981723">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25c1.1.37 2.3.57 3.6.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.6a1 1 0 0 1-.25 1z"/></svg>
+      <span data-k="call"></span>
+    </a>
+    <a class="wa" id="wa" href="https://wa.me/918552981723" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.2 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.3.5-.4.4c-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.4.1.6-.1l.8-1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.3.1.2.1.8-.1 1.4z"/></svg>
+      <span data-k="wa"></span>
+    </a>
+  </div>
+  <p class="num"><a href="tel:+918552981723">8552981723</a></p>
+</section>
+<footer data-k="foot"></footer>
+</div>
+
+<script>
+(function(){
+  var PHONE = "918552981723";
+  var DISTRICTS = [
+    {v:"Sangli", mr:"सांगली", en:"Sangli"},
+    {v:"Kolhapur", mr:"कोल्हापूर", en:"Kolhapur"},
+    {v:"Satara", mr:"सातारा", en:"Satara"}
+  ];
+  var TYPES = [
+    {v:"Loan against property", mr:"मालमत्तेवर कर्ज", en:"Loan against property"},
+    {v:"Loan for property", mr:"मालमत्ता खरेदीसाठी कर्ज", en:"Loan for property"},
+    {v:"Gold loan", mr:"सोने कर्ज", en:"Gold loan"},
+    {v:"Loan against gold", mr:"सोने तारण कर्ज", en:"Loan against gold"},
+    {v:"Personal loan", mr:"वैयक्तिक कर्ज", en:"Personal loan"}
+  ];
+  var AMOUNTS = [
+    {v:"₹5 lakh to ₹10 lakh", mr:"₹5 ते ₹10 लाख", en:"₹5 to ₹10 lakh"},
+    {v:"₹10 lakh to ₹20 lakh", mr:"₹10 ते ₹20 लाख", en:"₹10 to ₹20 lakh"},
+    {v:"₹20 lakh to ₹25 lakh", mr:"₹20 ते ₹25 लाख", en:"₹20 to ₹25 lakh"},
+    {v:"₹25 lakh plus", mr:"₹25 लाखांपेक्षा जास्त", en:"₹25 lakh plus"}
+  ];
+  var T = {
+    mr:{
+      title:"कर्ज चौकशी – CPM सांगली",
+      sub:"फॉर्म भरा, आमचे प्रतिनिधी तुम्हाला संपर्क करतील.",
+      area:"फक्त सांगली, कोल्हापूर आणि सातारा",
+      name:"तुमचे नाव", phone:"मोबाईल नंबर", district:"तुमचा जिल्हा",
+      type:"कर्जाचा प्रकार", amount:"कर्जाची रक्कम",
+      send:"चौकशी पाठवा",
+      note:"बटण दाबल्यावर व्हॉट्सॲप उघडेल. तेथे ‘Send’ दाबा.",
+      done:"व्हॉट्सॲप उघडले आहे. चौकशी पूर्ण होण्यासाठी तेथे संदेश पाठवा.",
+      direct:"थेट संपर्क करायचा आहे?", directSub:"आम्हाला कॉल करा किंवा व्हॉट्सॲपवर संदेश पाठवा.",
+      call:"कॉल करा", wa:"व्हॉट्सॲप",
+      foot:"शांतनू पाटील, सांगली",
+      eName:"कृपया तुमचे नाव लिहा.", ePhone:"कृपया १० अंकी मोबाईल नंबर लिहा.",
+      eDistrict:"कृपया जिल्हा निवडा.", eType:"कृपया कर्जाचा प्रकार निवडा.", eAmount:"कृपया रक्कम निवडा.",
+      waHi:"नमस्कार, मला कर्जाची चौकशी करायची आहे."
+    },
+    en:{
+      title:"Loan Inquiry CPM Sangli",
+      sub:"Fill the form and our team will contact you.",
+      area:"Only for Sangli, Kolhapur and Satara",
+      name:"Your name", phone:"Mobile number", district:"Your district",
+      type:"Type of loan", amount:"Loan amount",
+      send:"Send inquiry",
+      note:"WhatsApp will open after you tap the button. Press ‘Send’ there.",
+      done:"WhatsApp has opened. Send the message there to complete your inquiry.",
+      direct:"Want to contact directly?", directSub:"Call us or message us on WhatsApp.",
+      call:"Call now", wa:"WhatsApp",
+      foot:"Shantanu Patil, Sangli",
+      eName:"Please enter your name.", ePhone:"Please enter a 10-digit mobile number.",
+      eDistrict:"Please select your district.", eType:"Please select a loan type.", eAmount:"Please select an amount.",
+      waHi:"Hello, I would like to inquire about a loan."
+    }
+  };
+  var lang = "mr";
+  try { var s = localStorage.getItem("cpm-lang"); if (s === "en" || s === "mr") lang = s; } catch(e){}
+
+  function $(id){ return document.getElementById(id); }
+
+  function build(id, name, items){
+    var box = $(id);
+    box.innerHTML = "";
+    items.forEach(function(it, i){
+      var l = document.createElement("label"); l.className = "opt";
+      var inp = document.createElement("input");
+      inp.type = "radio"; inp.name = name; inp.value = it.v;
+      var sp = document.createElement("span"); sp.setAttribute("data-i", i);
+      l.appendChild(inp); l.appendChild(sp); box.appendChild(l);
+    });
+  }
+  function labels(id, items){
+    var spans = $(id).querySelectorAll("span");
+    spans.forEach(function(sp){ sp.textContent = items[+sp.getAttribute("data-i")][lang]; });
+  }
+  function checked(name){
+    var el = document.querySelector('input[name="'+name+'"]:checked');
+    return el ? el.value : "";
+  }
+  function waText(){
+    return T[lang].waHi;
+  }
+
+  function apply(){
+    var t = T[lang];
+    document.documentElement.lang = lang;
+    document.title = t.title;
+    document.querySelectorAll("[data-k]").forEach(function(el){ el.textContent = t[el.getAttribute("data-k")]; });
+    labels("g-district", DISTRICTS); labels("g-type", TYPES); labels("g-amount", AMOUNTS);
+    $("bmr").setAttribute("aria-pressed", lang === "mr");
+    $("ben").setAttribute("aria-pressed", lang === "en");
+    $("wa").href = "https://wa.me/" + PHONE + "?text=" + encodeURIComponent(waText());
+    ["name","phone","district","type","amount"].forEach(function(k){ $("e-"+k).textContent = ""; });
+  }
+
+  function setLang(l){
+    lang = l;
+    try { localStorage.setItem("cpm-lang", l); } catch(e){}
+    apply();
+  }
+  $("bmr").addEventListener("click", function(){ setLang("mr"); });
+  $("ben").addEventListener("click", function(){ setLang("en"); });
+
+  build("g-district", "district", DISTRICTS);
+  build("g-type", "type", TYPES);
+  build("g-amount", "amount", AMOUNTS);
+  apply();
+
+  $("phone").addEventListener("input", function(){
+    this.value = this.value.replace(/[०-९]/g, function(d){ return "०१२३४५६७८९".indexOf(d); }).replace(/\D/g, "").slice(0, 10);
+  });
+
+  $("f").addEventListener("submit", function(ev){
+    ev.preventDefault();
+    var t = T[lang];
+    var name = $("name").value.trim();
+    var phone = $("phone").value.trim();
+    var district = checked("district"), type = checked("type"), amount = checked("amount");
+    var bad = null;
+    function flag(k, msg){ $("e-"+k).textContent = msg; if (!bad) bad = k; }
+    ["name","phone","district","type","amount"].forEach(function(k){ $("e-"+k).textContent = ""; });
+    if (name.length < 2) flag("name", t.eName);
+    if (!/^[6-9]\d{9}$/.test(phone)) flag("phone", t.ePhone);
+    if (!district) flag("district", t.eDistrict);
+    if (!type) flag("type", t.eType);
+    if (!amount) flag("amount", t.eAmount);
+    if (bad){
+      var target = (bad === "name" || bad === "phone") ? $(bad) : $("e-"+bad);
+      target.scrollIntoView({behavior:"smooth", block:"center"});
+      if (target.focus && (bad === "name" || bad === "phone")) target.focus();
+      return;
+    }
+    var msg = "New loan inquiry – CPM Sangli\n\n" +
+      "Name: " + name + "\n" +
+      "Mobile: " + phone + "\n" +
+      "District: " + district + "\n" +
+      "Loan type: " + type + "\n" +
+      "Amount: " + amount;
+    var url = "https://wa.me/" + PHONE + "?text=" + encodeURIComponent(msg);
+    $("done").classList.add("show");
+    var w = null;
+    try { w = window.open(url, "_blank"); } catch(e){}
+    if (!w) { window.location.href = url; }
+  });
+})();
+</script>
+</body>
+</html>
